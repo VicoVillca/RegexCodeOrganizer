@@ -1,0 +1,16 @@
+<div class="code-input">
+  <div class="input-header">
+    <h4>📝 Código Java</h4>
+    <div>
+      <button pButton label={{label.limpiar}} severity="secondary" size="small" class="mr-2"
+        (click)="limpiarFormulario()"></button>
+      <button pButton label={{label.cargarEjemplo}} icon="pi pi-code" severity="help" size="small" (click)="cargarEjemplo()" class="mr-2">
+            </button>
+      <button pButton icon="pi pi-play" label={{label.ordenarCodigo}} size="small" [disabled]="!code" (click)="organizarCodigo()">
+      </button>
+    </div>
+  </div>
+
+  <textarea pInputTextarea [(ngModel)]="code" [rows]="15" placeholder="Pega tu código Java aquí..." class="w-full">
+  </textarea>
+</div>
