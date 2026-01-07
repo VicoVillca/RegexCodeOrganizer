@@ -5,7 +5,7 @@
     <div >
       <button pButton 
               icon="pi pi-copy" 
-              label="Copiar"
+              label={{label.copiar}}
               (click)="copyToClipboard()">
       </button>
     </div>
@@ -13,7 +13,7 @@
 
   <div *ngIf="!result" class="empty-state">
     <i class="pi pi-inbox"></i>
-    <p>Ingresa código y haz click en "Ordenar Código"</p>
+    <p>{{message.mensajeInstrucciones}}</p>
   </div>
 
   <div *ngIf="result">
@@ -21,13 +21,13 @@
     
     <div class="stats" *ngIf="result.stats">
       <div class="stat-item">
-        <span>Tiempo: {{ getProcessingTime() }}ms</span>
+        <span>{{label.tiempo}}: {{ getProcessingTime() }}ms</span>
       </div>
       <div class="stat-item">
-        <span>Líneas: {{ getLineCount() }}</span>
+        <span>{{label.lineas}}: {{ getLineCount() }}</span>
       </div>
       <div class="stat-item" *ngIf="getLinesReduced() > 0">
-        <span>Reducción: {{ getLinesReduced() }} líneas</span>
+        <span>{{label.reduccion}}: {{ getLinesReduced() }} {{label.lineas}}</span>
       </div>
     </div>
   </div>

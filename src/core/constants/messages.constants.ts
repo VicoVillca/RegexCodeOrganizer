@@ -24,5 +24,7 @@ export const messages = {
   unbalancedBraces: 'Las llaves { } no están balanceadas',
   unbalancedParentheses: 'Los paréntesis ( ) no están balanceados',
   invalidImports: 'Imports inválidos detectados',
-  missingSemicolon: 'Falta punto y coma en algunas líneas'
+  missingSemicolon: 'Falta punto y coma en algunas líneas',
+  mensajeInstrucciones: 'Ingresa código y haz click en "Ordenar Código"',
+  mensajeInstruccionesPegado:'Pega tu código Java aquí...'
 };
