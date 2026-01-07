@@ -5,5 +5,9 @@ export const labels = {
     copiar: "Copiar",
     tiempo: "Tiempo",
     lineas: "Líneas:",
-    reduccion:"Reducción"
+    reduccion: "Reducción",
+    codigoJava: "📝 Código Java",
+    titulo: "🔧 CodeOrganizer",
+    subTitulo: "Organiza tu código Java usando Expreciones regulares",
+    footer:"© CodeOrganizer - Desarrollado con Angular & PrimeNG"
 };

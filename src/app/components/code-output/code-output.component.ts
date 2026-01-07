@@ -9,7 +9,7 @@ declare var Prism: any;
 @Component({
   selector: 'app-code-output',
   standalone: true,
-  imports: [CommonModule,ButtonModule],
+  imports: [CommonModule, ButtonModule],
   templateUrl: './code-output.component.html',
   styleUrls: ['./code-output.component.scss']
 })
@@ -17,11 +17,11 @@ export class CodeOutputComponent implements AfterViewInit, OnChanges {
   @Input() result: OrganizedResult | null = null;
   @ViewChild('codeElement') codeElement!: ElementRef;
 
-    label = labels;
-    message = messages;
-  
-    constructor(){}
-  
+  label = labels;
+  message = messages;
+
+  constructor() { }
+
   copyToClipboard() {
     if (this.result?.organizedCode) {
       navigator.clipboard.writeText(this.result.organizedCode)
@@ -30,71 +30,77 @@ export class CodeOutputComponent implements AfterViewInit, OnChanges {
         });
     }
   }
-  
+
   ngAfterViewInit() {
-    this.applySyntaxHighlighting();
+    setTimeout(() => {
+      this.applySyntaxHighlighting();
+    });
   }
-  
+
   ngOnChanges(changes: SimpleChanges) {
-    
+
     if (changes['result'] && changes['result'].currentValue) {
       this.forceHighlightUpdate();
     }
   }
-  
+
   private applySyntaxHighlighting() {
-    
+
     if (!this.codeElement?.nativeElement) {
       return;
     }
-    
+
     if (!this.result?.organizedCode) {
       return;
     }
-    
+
     if (typeof Prism === 'undefined') {
       return;
     }
-    
+
     Prism.highlightElement(this.codeElement.nativeElement);
   }
-  
+
   private forceHighlightUpdate() {
-    if (!this.codeElement?.nativeElement || !this.result?.organizedCode) {
-      return;
-    }
-    
-    const codeElement = this.codeElement.nativeElement;
-    codeElement.textContent = this.result.organizedCode;
-    
-    codeElement.className = 'language-java';
-    
-    const preElement = codeElement.parentElement;
-    if (preElement && preElement.tagName === 'PRE') {
-      preElement.className = 'language-java';
-    }
-    
-    codeElement.offsetHeight;
-    
-    if (typeof Prism !== 'undefined') {
-      Prism.highlightElement(codeElement);
-    }
+    setTimeout(() => {
+      if (!this.codeElement?.nativeElement || !this.result?.organizedCode) {
+        return;
+      }
+
+      const codeElement = this.codeElement.nativeElement;
+
+      codeElement.className = '';
+      codeElement.textContent = this.result.organizedCode;
+
+      codeElement.classList.add('language-java');
+
+      const preElement = codeElement.parentElement;
+      if (preElement && preElement.tagName === 'PRE') {
+        preElement.className = 'language-java';
+      }
+
+      void codeElement.offsetHeight;
+
+      if (typeof Prism !== 'undefined') {
+        Prism.highlightElement(codeElement);
+      }
+    });
   }
-  
+
   getLineCount(): number {
     return this.result?.organizedCode?.split('\n').length || 0;
   }
-  
+
   getFileSize(): string {
     if (!this.result?.organizedCode) return '0';
     const bytes = new Blob([this.result.organizedCode]).size;
     return (bytes / 1024).toFixed(2);
   }
-  
+
   getProcessingTime(): number {
     return this.result?.stats?.processingTime || 0;
   }
-  
+
   getLinesReduced(): number {
     return this.result?.stats?.linesReduced || 0;
   }

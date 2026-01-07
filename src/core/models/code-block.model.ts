@@ -1,4 +1,9 @@
 // Modelo para bloques de código detectados
+export interface lineCode{
+  codeInitial: string;
+  comentary: string;
+  codeFinal: string;
+}
 export interface CodeBlock {
   type: CodeBlockType;
   name: string;
